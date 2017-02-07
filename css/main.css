@@ -1,0 +1,9 @@
+
+#toggleSound {
+	background: rgba(0, 0, 0, 0);
+	border: none;
+	padding: 0;
+}
+#toggleSound:focus {
+	outline: none;
+}
