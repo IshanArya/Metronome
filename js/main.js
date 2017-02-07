@@ -11,6 +11,6 @@ window.onload = function() {
 	}
 
 	play.addEventListener('click', function() {
-		setInterval(playSound(marimba_1), 500);
+		setInterval(playSound, 500, marimba_1);
 	});
 }
