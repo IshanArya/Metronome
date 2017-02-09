@@ -1,9 +1,13 @@
 window.onload = function() {
 	var toggleSound = $('<button id="toggleSound"><i class="icon-play"></i></svg></button>');
-	var iconOfToggleSound = $('#toggleSound > i');
+	var tempoDisplay = $('<h2 id="tempo">120</h2>');
+	var tempoText;
+	var toggleSoundButton;
+	var iconOfToggleSound;
 	var slider = $('#slider');
 
 	var intervalId;
+	var tempo = 500;
 
 	var marimba_1 = new Howl({
 		src: ['sounds/marimba_1.mp3']
@@ -19,11 +23,20 @@ window.onload = function() {
 		min: 20,
 		value: 120,
 		radius: 360,
+		width: 35,
+		handleShape: "square",
+		handleSize: "20, 35",
+		showTooltip: false,
+		sliderType: "min-range",
 		create: function () {
 		  	this.innerBlock.append(toggleSound);
+		  	this.innerBlock.append(tempoDisplay);
+		  	toggleSoundButton = $('#toggleSound');
+		  	iconOfToggleSound =  $('#toggleSound > i');
+		  	tempoText = ('#tempo')
 	  		toggleSound.on('click', function() {
 	  	  		if(iconOfToggleSound.hasClass("icon-play")) {
-	  					intervalId = setInterval(playSound, 500, marimba_1);
+	  					intervalId = setInterval(playSound, tempo, marimba_1);
 	  	  		} else {
 	  	  			clearInterval(intervalId);
 	  	  		}
@@ -31,17 +44,14 @@ window.onload = function() {
 	  	  	});
 		},
 		start: function() {
-			var that = this;
-		  	var btn1 = $("<button id='sub'>-</button>");
-		    var btn2 = $("<button id='add'>+</button>");
-		  	this.innerBlock.append(btn1);
-		    this.innerBlock.append(btn2);
-		    btn1.click(function() {
-		    	that.setValue(that.options.value - 1);
-		    });
-		    btn2.click(function() {
-		    	that.setValue(that.options.value + 1);
-		    });
+			
+		},
+		stop: function() {
+			tempo = 1000 / (this.getValue() / 60);
+			if(iconOfToggleSound.hasClass("icon-stop")) {
+				clearInterval(intervalId);
+				intervalId = setInterval(playSound, tempo, marimba_1);
+			}
 		}
 	});
 

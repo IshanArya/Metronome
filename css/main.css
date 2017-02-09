@@ -1,4 +1,9 @@
 
+body {
+	background: #2A2A33;
+	color: #FAFAFA;
+}
+
 h1 {
 	text-align: center;
 	margin: 0 auto;
@@ -8,17 +13,53 @@ h1 {
 #slider {
 	margin: 0 auto;
 }
+#slider .rs-path-color {
+	background-color: #FFEB3B;
+	border: 0;
+}
+#slider .rs-range-color {
+	background-color: #18FFFF;
+}
+#slider .rs-handle {
+	background-color: #2A2A33;
+	/*border-left: 5px solid #FFEB3B;
+	border-top: 5px solid #FFEB3B;
+	border-right: 5px solid #18FFFF;
+	border-bottom: 5px solid #18FFFF;*/
+}
+#slider .rs-border {
+	border: 5px solid #2A2A33;
+}
+#slider .rs-bg-color {
+	background-color: #2A2A33;
+}
+
 
 #toggleSound {
 	position: absolute;
 	font-size: 20em;
 	background: rgba(0, 0, 0, 0);
-	top: 157px;
-	left: 117px;
+	top: 136.2px;
+	left: 96.2px;
 	border: none;
 	padding: 0;
 	box-sizing: border-box;
 }
 #toggleSound:focus {
 	outline: none;
+}
+#toggleSound > i {
+	color: #18FFFF;
+}
+
+#tempo {
+	position: absolute;
+	font-size: 20em;
+	background: rgba(0, 0, 0, 0);
+	top: 136.2px;
+	left: 80.2px;
+	border: none;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
