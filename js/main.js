@@ -18,6 +18,11 @@ window.onload = function() {
 		sound.play();
 	}
 
+	function centerInside(outsideElement, insideElement) {
+		insideElement.css("top", ((outsideElement.outerHeight() - insideElement.outerHeight()) / 2) + "px");
+		insideElement.css("left", ((outsideElement.outerWidth() - insideElement.outerWidth()) / 2) + "px");
+	}
+
 	slider.roundSlider({
 		max: 360,
 		min: 20,
@@ -30,10 +35,12 @@ window.onload = function() {
 		sliderType: "min-range",
 		create: function () {
 		  	this.innerBlock.append(toggleSound);
-		  	this.innerBlock.append(tempoDisplay);
 		  	toggleSoundButton = $('#toggleSound');
+		  	centerInside(this.innerBlock, toggleSoundButton);
 		  	iconOfToggleSound =  $('#toggleSound > i');
-		  	tempoText = ('#tempo')
+		  	this.innerBlock.append(tempoDisplay);
+		  	tempoText = $('#tempo');
+		  	centerInside(this.innerBlock, tempoText);
 	  		toggleSound.on('click', function() {
 	  	  		if(iconOfToggleSound.hasClass("icon-play")) {
 	  					intervalId = setInterval(playSound, tempo, marimba_1);
@@ -44,10 +51,16 @@ window.onload = function() {
 	  	  	});
 		},
 		start: function() {
-			
+			toggleSoundButton.hide();
+			tempoText.show();
+		},
+		drag: function() {
+			tempoText.text(("0" + this.getValue()).slice(-3));
 		},
 		stop: function() {
 			tempo = 1000 / (this.getValue() / 60);
+			tempoText.hide();
+			toggleSoundButton.show();
 			if(iconOfToggleSound.hasClass("icon-stop")) {
 				clearInterval(intervalId);
 				intervalId = setInterval(playSound, tempo, marimba_1);

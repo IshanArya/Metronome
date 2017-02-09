@@ -39,8 +39,6 @@ h1 {
 	position: absolute;
 	font-size: 20em;
 	background: rgba(0, 0, 0, 0);
-	top: 136.2px;
-	left: 96.2px;
 	border: none;
 	padding: 0;
 	box-sizing: border-box;
@@ -54,10 +52,10 @@ h1 {
 
 #tempo {
 	position: absolute;
+	display: none;
+	color: #FFEB3B;
 	font-size: 20em;
 	background: rgba(0, 0, 0, 0);
-	top: 136.2px;
-	left: 80.2px;
 	border: none;
 	margin: 0;
 	padding: 0;
