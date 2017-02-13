@@ -69,7 +69,6 @@ window.onload = function() {
 		  	tempoText = $('#tempo');
 		  	editElements.standby(tempoText);
 	  		toggleSound.on('click', function() {
-	  			editElements.shrinkText(toggleSoundButton);
 	  	  		if(iconOfToggleSound.hasClass("icon-play")) {
 	  					intervalId = setInterval(playSound, tempo, marimba_1);
 	  	  		} else {
