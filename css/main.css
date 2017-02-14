@@ -37,9 +37,10 @@ h1 {
 
 
 #toggleSound {
+	cursor: pointer;
 	position: absolute;
 	transition: top 0.5s ease-out, left 0.5s ease-out;
-	font-size: 20em;
+	font-size: 10em;
 	background: rgba(0, 0, 0, 0);
 	border: none;
 	padding: 0;
@@ -51,15 +52,46 @@ h1 {
 #toggleSound > i {
 	color: #18FFFF;
 }
-
 #tempo {
 	position: absolute;
 	transition: top 0.5s ease-out, left 0.5s ease-out;
 	color: #FFEB3B;
-	font-size: 20em;
+	font-size: 10em;
 	background: rgba(0, 0, 0, 0);
 	border: none;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+.btn-group {
+	margin-left: 2%;
+}
+.btn-group button {
+	transition: all 0.5s;
+	cursor: pointer;
+	display: inline-block;
+	width: 3em;
+	font-size: 1.5em;
+	color: #FAFAFA;
+	background: rgba(0, 0, 0, 0);
+	border: 3px solid #FAFAFA;
+	margin: 0;
+	padding: .2% 0;
+	padding-right: 1%;
+}
+.btn-group button:focus {
+	outline: none;
+}
+.btn-group button:hover {
+	color: #424242;
+	background: #9E9E9E;
+}
+#subdivision1, #subdivision2, #subdivision3 {
+	border-right: 0;
+}
+.btn-group button.subdivisionSelected {
+	color: #2A2A33;
+	background: #FAFAFA;
+	border: 3px solid #FAFAFA;
 }

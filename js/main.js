@@ -1,15 +1,17 @@
 window.onload = function() {
+	var theRoundSlider;
 	var toggleSound = $('<button id="toggleSound"><i class="icon-play"></i></svg></button>');
-	var tempoDisplay = $('<h2 id="tempo">120</h2>');
-	var tempoText;
-	var toggleSoundButton;
 	var iconOfToggleSound;
+	var tempoDisplay = $('<h2 id="tempo">120</h2>');
 	var slider = $('#slider');
+	var buttonGroup = $('div.btn-group');
+	var groupButtons = $('.btn-group button');
 
 	var defaultFontSize = parseFloat(getComputedStyle(document.body).fontSize);
 
 	var intervalId;
 	var tempo = 500;
+	var subdivision = 1;
 
 	var marimba_1 = new Howl({
 		src: ['sounds/marimba_1.mp3']
@@ -20,6 +22,13 @@ window.onload = function() {
 		sound.stop();
 		sound.play();
 	}
+	function changeTempo() {
+		tempo = 1000 / (theRoundSlider.getValue() / 60) / subdivision;
+		if(iconOfToggleSound.hasClass("icon-stop")) {
+			clearInterval(intervalId);
+			intervalId = setInterval(playSound, tempo, marimba_1);
+		}
+	}
 
 	var editElements = {
 		centerInside: function(insideElement) {
@@ -28,13 +37,17 @@ window.onload = function() {
 			insideElement.css("left", ((outsideElement.outerWidth() - insideElement.outerWidth()) / 2) + "px");
 		},
 		growText: function(element) {
-			element.css("font-size", "20em");
+			if(element === tempoDisplay) {
+				element.css("font-size", "8em");
+			} else {
+				element.css("font-size", "10em");
+			}
 		},
 		shrinkText: function (element) {
 			element.css("font-size", "2em");
 		},
 		bringDown: function (element) {
-			element.css("top", "500px");
+			element.css("top", "220px");
 		},
 		standby: function(element) {
 			this.shrinkText(element);
@@ -53,21 +66,19 @@ window.onload = function() {
 		max: 360,
 		min: 20,
 		value: 120,
-		radius: 360,
+		radius: 180,
 		width: 35,
 		handleShape: "square",
 		handleSize: "20, 35",
 		showTooltip: false,
 		sliderType: "min-range",
 		create: function () {
-			var that = this;
+			theRoundSlider = this;
 		  	this.innerBlock.append(toggleSound);
-		  	toggleSoundButton = $('#toggleSound');
-		  	editElements.bringToMain(toggleSoundButton);
+		  	editElements.bringToMain(toggleSound);
 		  	iconOfToggleSound =  $('#toggleSound > i');
 		  	this.innerBlock.append(tempoDisplay);
-		  	tempoText = $('#tempo');
-		  	editElements.standby(tempoText);
+		  	editElements.standby(tempoDisplay);
 	  		toggleSound.on('click', function() {
 	  	  		if(iconOfToggleSound.hasClass("icon-play")) {
 	  					intervalId = setInterval(playSound, tempo, marimba_1);
@@ -78,30 +89,31 @@ window.onload = function() {
 	  	  	});
 		},
 		start: function() {
-			editElements.standby(toggleSoundButton);
-			editElements.bringToMain(tempoText);
+			editElements.standby(toggleSound);
+			editElements.bringToMain(tempoDisplay);
 		},
 		drag: function() {
-			tempoText.text(("0" + this.getValue()).slice(-3));
+			tempoDisplay.text(("0" + this.getValue()).slice(-3));
+			editElements.bringToMain(tempoDisplay);
 		},
 		change: function() {
-			tempoText.text(("0" + this.getValue()).slice(-3));
-			tempo = 1000 / (this.getValue() / 60);
-			if(iconOfToggleSound.hasClass("icon-stop")) {
-				clearInterval(intervalId);
-				intervalId = setInterval(playSound, tempo, marimba_1);
-			}
+			tempoDisplay.text(("0" + this.getValue()).slice(-3));
+			changeTempo();
 		},
 		stop: function() {
-			tempo = 1000 / (this.getValue() / 60);
-			editElements.bringToMain(toggleSoundButton);
-			editElements.standby(tempoText);
-			editElements.centerInside(tempoText);
-			editElements.bringDown(tempoText);
-			if(iconOfToggleSound.hasClass("icon-stop")) {
-				clearInterval(intervalId);
-				intervalId = setInterval(playSound, tempo, marimba_1);
-			}
+			editElements.bringToMain(toggleSound);
+			editElements.standby(tempoDisplay);
+			changeTempo();
+		}
+	});
+
+	buttonGroup.on('click', function(e) {
+		var target = $(e.target);
+		if(target.is('button')) {
+			groupButtons.removeClass("subdivisionSelected");
+			target.addClass("subdivisionSelected");
+			subdivision = target.attr("id").slice(-1);
+			changeTempo();
 		}
 	});
 
