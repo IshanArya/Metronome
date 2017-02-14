@@ -79,7 +79,6 @@ h1 {
 	border: 3px solid #FAFAFA;
 	margin: 0;
 	padding: .2% 0;
-	padding-right: 1%;
 }
 .btn-group button:focus {
 	outline: none;
@@ -92,8 +91,8 @@ h1 {
 	border-right: 0;
 }
 #subdivision3 {
-	padding-top: .3%;
-	padding-right: 0;
+	padding: 0;
+	padding-right: 0.3%;
 }
 .btn-group button.subdivisionSelected {
 	color: #2A2A33;
