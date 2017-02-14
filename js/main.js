@@ -109,6 +109,9 @@ window.onload = function() {
 
 	buttonGroup.on('click', function(e) {
 		var target = $(e.target);
+		if(target.is('i')) {
+			target = target.closest("button");
+		}
 		if(target.is('button')) {
 			groupButtons.removeClass("subdivisionSelected");
 			target.addClass("subdivisionSelected");

@@ -71,6 +71,7 @@ h1 {
 	transition: all 0.5s;
 	cursor: pointer;
 	display: inline-block;
+	height: 2em;
 	width: 3em;
 	font-size: 1.5em;
 	color: #FAFAFA;
@@ -87,8 +88,12 @@ h1 {
 	color: #424242;
 	background: #9E9E9E;
 }
-#subdivision1, #subdivision2, #subdivision3 {
+#subdivision1, #subdivision2, #subdivision4 {
 	border-right: 0;
+}
+#subdivision3 {
+	padding-top: .3%;
+	padding-right: 0;
 }
 .btn-group button.subdivisionSelected {
 	color: #2A2A33;
