@@ -6,19 +6,33 @@ window.onload = function() {
 	var slider = $('#slider');
 	var buttonGroup = $('div.btn-group');
 	var groupButtons = $('.btn-group button');
+	var soundsList = $('#sounds');
+	var soundsOptions = $('#sounds option')
 
 	var defaultFontSize = parseFloat(getComputedStyle(document.body).fontSize);
+
+	var sounds = {
+		khz1_pulse: {
+			name: "1 Khz Pulse",
+			sound: new Howl({
+				src: ['sounds/1khz_pulse.mp3']
+			})
+		},
+		marimba_1: {
+			name: "Marimba 1",
+			sound: new Howl({
+				src: ['sounds/marimba_1.mp3']
+			})
+		}
+	}
 
 	var intervalId;
 	var tempo = 500;
 	var subdivision = 1;
-
-	var marimba_1 = new Howl({
-		src: ['sounds/marimba_1.mp3']
-	});
+	var sound = sounds.khz1_pulse.sound;
 
 
-	function playSound(sound) {
+	function playSound() {
 		sound.stop();
 		sound.play();
 	}
@@ -26,7 +40,7 @@ window.onload = function() {
 		tempo = 1000 / (theRoundSlider.getValue() / 60) / subdivision;
 		if(iconOfToggleSound.hasClass("icon-stop")) {
 			clearInterval(intervalId);
-			intervalId = setInterval(playSound, tempo, marimba_1);
+			intervalId = setInterval(playSound, tempo);
 		}
 	}
 
@@ -57,10 +71,23 @@ window.onload = function() {
 		bringToMain: function(element) {
 			this.growText(element);
 			this.centerInside(element);
+		},
+		addSoundstoSoundList: function() {
+			for (var beep in sounds) {
+			   if (sounds.hasOwnProperty(beep)) {
+			      var obj = sounds[beep];
+			      soundsList.append($('<option>', {
+			      	value: beep,
+			      	text: obj.name
+			      }));
+			   }
+			}
 		}
 	}
 	
-	
+
+	editElements.addSoundstoSoundList();
+
 
 	slider.roundSlider({
 		max: 360,
@@ -81,7 +108,7 @@ window.onload = function() {
 		  	editElements.standby(tempoDisplay);
 	  		toggleSound.on('click', function() {
 	  	  		if(iconOfToggleSound.hasClass("icon-play")) {
-	  					intervalId = setInterval(playSound, tempo, marimba_1);
+	  					intervalId = setInterval(playSound, tempo);
 	  	  		} else {
 	  	  			clearInterval(intervalId);
 	  	  		}
@@ -118,6 +145,12 @@ window.onload = function() {
 			subdivision = target.attr("id").slice(-1);
 			changeTempo();
 		}
+	});
+	soundsList.on('change', function() {
+		sound = sounds[this.value].sound;
+	});
+	soundsList.on('mouseenter', 'option', function() {
+		this.style.background = "red";
 	});
 
 }

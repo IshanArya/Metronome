@@ -66,11 +66,13 @@ h1 {
 
 .btn-group {
 	margin-left: 2%;
+	float: left;
 }
 .btn-group button {
 	transition: all 0.5s;
 	cursor: pointer;
 	display: inline-block;
+	vertical-align: top;
 	height: 2em;
 	width: 3em;
 	font-size: 1.5em;
@@ -98,4 +100,28 @@ h1 {
 	color: #2A2A33;
 	background: #FAFAFA;
 	border: 3px solid #FAFAFA;
+}
+
+.soundSettings {
+	margin-right: 2%;
+	float: right;
+	height: 100%;
+}
+#sounds {
+	width: 21.6em;
+	height: 3em;
+	background: rgba(0, 0, 0, 0);
+	color: #FAFAFA;
+	border: 3px solid #FAFAFA;
+	padding-left: 1em;
+}
+#sounds:focus {
+	outline: none;
+}
+#sounds option {
+	background: #2A2A33;
+	height: 10em;
+}
+#sounds:hover, #sounds:active {
+	outline-color: red;
 }
